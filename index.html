@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="jquery-3.2.1.js"></script>
+  <title>Exercice 5</title>
+</head>
+<body>
+  <select id="joueur">
+    <option value="Pierre">Pierre</option>
+    <option value="Feuille">Feuille</option>
+    <option value="Ciseaux">Ciseaux</option>
+  </select>
+  <button id="SHIFUMI">SHIFUMI !</button>
+  <div id="textResult"><p></p></div>
+  <script>
+    $(function(){
+      var nbComputer = "";
+      var nbPlayer = "";
+      var win = 0;
+      var loose = 0;
+      var nbParty = 0;
+      var result = "";
+      //Nombre random de l'IA
+      function computerNb(){
+        var randomNumber = Math.floor(Math.random()*3 + 1)
+        if(randomNumber == 1){
+          nbComputer = "Pierre";
+        } else if (randomNumber == 2){
+            nbComputer = "Feuille";
+        } else {
+            nbComputer = "Ciseaux";
+        }
+      }
+      //Sélection du joueur
+      function playerNb(){
+        nbPlayer = $('#joueur').val();
+      }
+      //Comparaison du choix du joueur avec le choix de l'IA
+      function comparaison(){
+        if((nbPlayer == "Pierre" && nbComputer == "Ciseaux") || (nbPlayer == "Feuille" && nbComputer == "Pierre") || (nbPlayer == "Ciseaux" && nbComputer == "Feuille")){
+          result = "WIN !";
+          win ++;
+        } else if (nbPlayer == nbComputer){
+            result = "DRAW !";
+        } else {
+            result = "LOOSE !";
+            loose ++;
+        }
+      }
+      $('#SHIFUMI').click( function(){
+          computerNb();
+          playerNb();
+          comparaison();
+          showResult();
+      });
+      function showResult(){
+        var pourcentageWin = (win / (win + loose))*100
+        $('#textResult').text(result + ' Victoire : ' + win + ' Défaite : ' + loose + ' Winrate : ' + pourcentageWin + '%');
+      }
+ });
+  </script> 
+</body>
+</html>
